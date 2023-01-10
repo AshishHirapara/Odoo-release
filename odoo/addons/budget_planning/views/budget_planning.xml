@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+    <record id="view_budget_planning_tree" model="ir.ui.view">
+        <field name="name">budget.planning.tree</field>
+        <field name="model">budget.planning</field>
+        <field name="arch" type="xml">
+            <tree string="Budget">
+               <field name="name" />
+            </tree>
+        </field>
+    </record> 
+
+    <record id="view_budget_planning_form" model="ir.ui.view">
+        <field name="name">budget.planning.form</field>
+        <field name="model">budget.planning</field>
+        <field name="arch" type="xml">
+            <form string="Budget Planning">
+               
+                <header>
+                    <button name="action_approve" states="requested" string="Approve" class="oe_highlight" groups="budget_planning.group_request_budget_approval" type="object" />
+                    <button name="action_request" states="draft" string="Request" type="object" class="oe_highlight" groups="budget_planning.group_requester"/>
+                    <button name="action_reject" states="draft,requested" string="Reject" groups="budget_planning.group_request_budget_approval" type="object"/>
+                    <button name="action_set_to_draft" states="rejected" string="Set To Draft" class="oe_highlight" groups="budget_planning.group_request_budget_approval" type="object" />
+                    <button name="action_done" states="approved" string="Done" class="oe_highlight" groups="budget_planning.group_request_budget_approval" type="object"/>
+                    <button name="margin_action" states="done" string="Set Work Stream To Project Task" class="oe_highlight" groups="budget_planning.group_request_budget_approval" type="object"/>
+                    <field name="state" widget="statusbar" class="oe_highlight" statusbar_visible="draft,requested,approved,done,rejected"/>
+
+                </header>
+                <sheet>
+                  <field name="squ" string="Reference"/>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                      
+                    </group>
+                    <group colspan="4" col="4">
+                        <field name="date"/>
+                    </group>
+                        <newline />
+                        <notebook>
+                            <page string="Budget objective and Descritption">
+                                <field name="description" />
+                            </page>
+                            <page string="Budget Planning Setting">
+                            <div class="row mt6 o_settings_container">
+                                <group>
+                                <group colspan="1">
+                                   
+                                </group>
+                                <group colspan="4">
+                                    <group colspan="1">
+                                        <field name="user_id" string="Budget Planner" widget="many2one_avatar_user"  domain="[('share', '=', False)]"/>
+                                        <field name="department"  />
+                                        <field name="teams"  widget="many2many_tags"/>
+                                        <field name="analytic_account_id" string="Budget Account" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"   />
+                                    </group>
+                                    <group colspan="1"> 
+                                       <field name="budget_planner"  />
+                                        <field name="company_id" groups="base.group_multi_company"/>
+
+                                        <field name="planned_amount" options="{'reload_on_button': true}"/>
+                                        <field name="output" string="OutPut"/>
+
+                                        <field name="compute_field" invisible="1"/>
+                                        <field name="budgeted_amount" 
+                                        
+                                        attrs="{'readonly': [('compute_field', '=', True)],'invisible': [('state', '=', 'draft')]}" />
+                                    
+
+                                    </group>
+                                   
+
+                                </group>
+
+                            </group>
+                            </div>
+                            <newline />
+                            <separator string="Work Stream Brak Down" colspan="4" />
+                       
+                             <field name="work_stream_line">
+                                 <tree
+                                        string="Work Stream"
+                                        editable="bottom"
+                                    >
+                                        <control>
+                                            <create name="add_product_control" string="Add Work stream"/>
+                                           
+                                        </control>
+                                        <field name="name"/>
+                                        <field name="budget_amount"/>
+                                        <field name="target_point" string="Target Area"/>
+                                        
+
+                                </tree>
+
+                                <form>
+                                    <field name="name"/>
+                                    <field name="budget_amount"/>
+                                    <field name="target_point" string="Target Area"/>
+                                </form>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                               
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                   
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="planned_amount" />
+                                    </div> 
+                                    <field name="planned_amount" nolabel="1" string="Total Planned Amount:" class="oe_subtotal_footer_separator"/>
+                                 </group>
+                                <div class="oe_clear"/>
+                            </group>
+                            </page>
+                            <page string="Approved Budget Result" attrs="{'invisible': [('state', 'in', ('draft','requested'))]}">
+                               <group >
+                                <group colspan="4">
+                                    <field name="partner_id"  attrs="{'readonly': [('compute_field', '=', True)],'invisible': [('state', '=', 'draft')]}"  string="Approved By"/>
+                                </group>
+                                <group colspan="4">
+                                    <field name="budgeted_amount" readonly="1"
+                                 
+                                    />
+
+                                </group>
+                               </group> 
+                               
+
+                               
+                            </page>
+                           
+                        </notebook>
+                        <div class="oe_clear" />
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+        </field>
+    </record> 
+
+
+
+
+    <record model="ir.actions.act_window" id="budget_planning_request">
+        <field name="name">Budget Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">budget.planning</field>
+        <field name="view_mode">tree,form</field>
+         <field name="domain">[('user_id','=',uid), ('state', 'not in', ['approved', 'done'])]</field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="budget_planning_approval">
+        <field name="name">Budget Planning Requests for Approval</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">budget.planning</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'approved')]</field>
+     </record>
+
+     <record model="ir.actions.act_window" id="my_budget_planning_request">
+        <field name="name">My Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">budget.planning</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Budget Requests
+            </p>
+            <p>
+                Let's go to the <a type="action" class="text-primary" name="%(budget_planning.budget_planning_request)d">new request</a> menu
+            </p>
+        </field>
+     </record>
+
+    
+    <menuitem 
+        name="Budget Planning" id="budget_planning.menu_root"  
+        groups="budget_planning.group_request_budget_approval,budget_planning.group_requester"/>
+
+    <menuitem 
+        name="My Request" id="budget_planning.menu_for_my_request"   
+        sequence="1"
+        parent="budget_planning.menu_root" 
+        action="my_budget_planning_request"  
+        groups="budget_planning.group_requester,budget_planning.group_request_budget_approval"/>
+   
+    <menuitem 
+        name="Budget Preparation" 
+        id="budget_planning.menu_for_planning"   
+        sequence="2"
+        parent="budget_planning.menu_root" 
+        action="budget_planning_request"  
+        groups="budget_planning.group_requester"/>
+
+    <menuitem 
+        name="Approve Budget Request" 
+        id="budget_planning.menu_for_approval"   
+        sequence="10"
+        parent="budget_planning.menu_root" 
+        action="budget_planning_approval"  
+        groups="budget_planning.group_request_budget_approval"/>
+ 
+  
+  </data>
+
+</odoo>

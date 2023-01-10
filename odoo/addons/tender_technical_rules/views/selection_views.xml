@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+   <record model="ir.ui.view" id="view_child_selection_variant_rule_form">
+         <field name="name">selection.variant.rule.form</field>
+         <field name="model">selection.variant.rule</field>
+         <field name="arch" type="xml">
+            <form string="Child Technical Rules">
+               <sheet>
+               <group>
+                    <group>
+                        <field name="name"  />
+                        <field name="value" />
+                    </group>
+                </group>
+                </sheet>
+            </form>
+         </field>
+      </record>
+
+
+
+
+  </data>
+
+</odoo>

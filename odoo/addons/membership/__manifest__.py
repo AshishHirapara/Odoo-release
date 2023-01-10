@@ -1,0 +1,27 @@
+
+{
+    'name': 'Membership',
+    'version': '1.0',
+    'category': 'Extra-tools',
+    'description': "",
+    "author": " ",
+    'depends': ['base','account', 'web', 'project'],
+    'data': [
+        'security/ir.model.access.csv',
+        'wizard/membership_invoice_views.xml',
+        'data/membership_data.xml',
+        'views/product_views.xml',
+        'views/partner_views.xml',
+        'views/membership_template.xml',
+        'views/compliant_form.xml',
+        'views/compliant_list.xml',
+        'views/messages_page.xml',
+        'views/assets.xml',
+        'report/report_membership_views.xml',
+    ],
+    'css': ['static/src/css/customstyle.css'],
+    'license': 'LGPL-3',
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_budget_planning_request_user,budget.planning.request.user,model_budget_planning,budget_planning.group_requester,1,1,1,1
+access_budget_planning_details_request_user,budget.planning.details.request.user,model_budget_planning_details,budget_planning.group_requester,1,1,1,1
+access_work_activity_stream_request_user,work.activity.stream.request.user,model_work_activity_stream,budget_planning.group_requester,1,1,1,1

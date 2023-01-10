@@ -1,0 +1,29 @@
+name: remote ssh to azure odoo server
+on: 
+  push:
+    branches: [ release ]
+  pull_request:
+   branches:  [ release ]
+jobs:
+
+  build:
+    name: Build
+    runs-on: linuxtria
+    steps:
+    - name: executing remote ssh commands using ssh key
+      uses: fifsky/ssh-action@master
+      with:
+       command: |
+        
+
+        
+        cd /home/message@aacity.com/odoorelease/Odoo
+        
+        git pull
+        
+        
+        docker-compose  -f docker-compose.release.yml up -d
+       host: ${{ secrets.HOST }}
+       user: ${{ secrets.USERNAME }}
+       key: ${{ secrets.PRIVATE_KEY }}
+       password: ${{ secrets.PASSWORD }}

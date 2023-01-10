@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="purchase_order_inherit_form_view">
+        <field name="name">purchase.order.view.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+				<page string="Technical Rules">
+                    	<field name="child_rule_ids">
+                            <field name="parent_rule_id"/>
+                            <field name="rule_name"/>
+                            <field name="point_given"/>
+                        </field>
+
+                        <field name="child_rule_result_ids"
+                                widget="section_and_note_one2many"
+                                mode="tree"
+                                context="{'default_state': 'draft'}"
+                                attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}">
+                                <tree string="Result of the rules" editable="bottom">
+                                    <field name="qoutation_id" />
+                                    <field name="child_rule_id" />
+                                    <field name="help_text"  readonly="1"/>
+                                    <field name="selected_variant" />
+                                    <field name="check_box" />
+                                    <field name="document" />
+                                    <field name="number"/>
+                                    <field name="selection"/>
+                                    <field name="result"/>
+                                </tree>
+                                <form string="Purchase Order Line">
+                                        <field name="qoutation_id" />
+                                        <field name="child_rule_id" />
+                                        <group >
+                                            <group>
+                                                <field name="help_text" />
+                                                <field name="selected_variant" />
+                                                <field name="check_box" />
+                                                <field name="document"/>
+                                                <field name="number"/>
+                                                <field name="selection" />
+                                            </group>
+                                            <group>
+                                                <field name="result" />
+                                                 </group>
+                                        </group>
+                                        </form>
+                            </field>
+                </page>
+                <page string="Result for Technical Rules">
+                    <field name="child_rule_result_ids"/>
+                </page>
+             </notebook>
+        </field>
+    </record>
+</odoo>

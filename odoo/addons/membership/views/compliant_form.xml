@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="web_menu_form1" model="website.menu">
+        <field name="name">Add Complaint</field>
+        <field name="url">/addComplaint</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">99</field>
+
+    </record> 
+
+
+    <template id="compliant_form" name="Compliant Form">
+      <t t-call="website.layout">
+          <div id="wrap">
+              <div class="oe_structure">
+                
+                  <div class="container"> 
+                 
+                     
+                  <div class="card">
+              
+                <div class="form">
+                     
+                    
+                    <div class="left-side">
+                     
+                    <form role="form" t-attf-action="/addComplaint" method="POST" onsubmit="this.action = '/addComplaint'">
+         
+                            <div class="main active"> 
+                                <div class="top-div">
+                                    <p id="p_1">Submit Your Compliant</p>
+                                </div>
+                                <div class="input-text">
+                                    <input type="text" name="issue_subject" placeholder="Issue Subject" id="user_name" />
+                                </div>
+                                 <div class="input-text">
+                                    <input type="date" name="issue_date" placeholder="Date" />
+                                </div>
+                           
+                                <div class="input-text"> 
+                                    <textbox type="text" name="issue_body" placeholder="Issue Body" ></textbox>
+                                </div>
+                                  <div class="buttons">
+                                    <button type="submit" class="submit">Submit</button>
+                                    
+                                </div>
+                        </div>   
+                      </form>
+                            
+                        
+                        
+                    </div> 
+                  
+                   
+                </div>
+            
+            </div>  
+            </div>
+              </div>
+          </div>
+      </t>
+      
+  </template>
+
+
+</odoo>

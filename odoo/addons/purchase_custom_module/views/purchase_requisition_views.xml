@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="purchase_requisition_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.requisition.form2.inherit</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="arch" type="xml">
+            <button name="action_done" position="after">
+                <button name="action_individal" states="open" string="Select Individual" type="object" class="btn-primary" />
+                <button name="action_total" states="open" string="Select Total" type="object" />
+                <button name="action_Previous" states="system_min_selection" string="Back to Bid State" type="object" />
+                <button name="action_confirm_system_result" states="system_min_selection" string="Confirm Sytem Result" type="object" class="btn-primary"  />
+            </button>
+            <field name="state" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,open,system_min_selection,done" attrs="{'invisible': [('is_quantity_copy', '=', 'none')]}"/>
+            </field>    
+
+           <!--  <xpath expr="//notebook" position="inside">
+                <page string="Vendor List" >
+                    <field name="purchase_ids">
+                        <tree editable="bottom">
+                            <field name="message_unread" invisible="1"/>
+                            <field name="partner_ref" optional="hide"/>
+                            <field name="name" string="Reference" readonly="1"/>
+                            <field name="date_order" invisible="not context.get('quotation_only', False)" optional="show"/>
+                            <field name="date_approve" invisible="context.get('quotation_only', False)" optional="show"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="selected"/>
+                            <field name="company_id" readonly="1" options="{'no_create': True}"
+                                groups="base.group_multi_company" optional="show"/>
+                            <field name="date_planned" invisible="context.get('quotation_only', False)" optional="show"/>
+                            <field name="user_id" optional="show"/>
+                            <field name="origin" optional="show"/>
+                            <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary" optional="hide"/>
+                            <field name="amount_total" sum="Total amount" widget="monetary" optional="show"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="state" optional="show"/>
+                            <field name="invoice_status" optional="hide"/>
+                            <field name="activity_exception_decoration" widget="activity_exception"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath> -->
+
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_selected_tree" model="ir.ui.view">
+    <field name="name">purchase.requisition.selected.tree</field>
+    <field name="model">purchase.order.line.unlink</field>
+    <field name="arch" type="xml">
+        <tree string="Products List" create="false">
+            <field name="name" readonly="1"/>
+            <field name="product_id" readonly="1"/>
+            <field name="product_qty" readonly="1"/>
+            <field name="price_unit" readonly="1"/>
+            <field name="taxes_id" widget="many2many_tags" readonly="1"/>
+            <field name="price_subtotal" readonly="1"/>
+            <field name="partner_id" readonly="1"/>
+            <field name="order_line" invisible="1"/>
+            <field name="selection"/>
+            <button string="Confirm Order"   name="button_confirm" type="object" class="oe_highlight"/>
+        </tree>
+    </field>
+    </record>
+    
+
+    <record model="ir.actions.act_window" id="action_purchase_requisition_selected">
+        <field name="name">Selected Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.line.unlink</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('selection','=','selected')]</field>
+    </record>
+
+    
+    <!-- <menuitem
+        id="menu_purchase_requisition_selected"
+        sequence="16"
+        parent="purchase.menu_procurement_management"
+        action="action_purchase_requisition_selected"/> -->
+
+</odoo>

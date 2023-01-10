@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bank_payroll">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="data">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h4>To: <span t-esc="data.payroll_header_id.bank_name"/></h4>
+                        <p>Branch: <span t-esc="data.payroll_header_id.bank_branch"/></p>
+                        <br/>
+                        <h4>To: Employee Salary Payment</h4>
+                        <br/>
+                        <p><span t-esc="data.payroll_header_id.content1"/> (Account No: <span t-esc="data.payroll_header_id.company_account"/>)</p>
+                        <p><span t-esc="data.payroll_header_id.content2"/></p>
+                        <table class="table table-condensed">
+                                <thead>
+                                    <tr style="line-height:10px">
+                                        <th style="border: 1px solid">SI.No</th>
+                                        <th style="border: 1px solid">Employee Name</th>
+                                        <th style="border: 1px solid">Bank Account No.</th>
+                                        <th style="border: 1px solid">Net Pay</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="SN" t-value="0"/>
+                                    <t t-set="total_amount" t-value="0"/>
+                                    <tr t-foreach="data.slip_ids" t-as="o" style="line-height:10px">
+                                        <td style="border: 1px solid">
+                                            <t t-set="SN"
+                                               t-value="SN + 1"/>
+                                            <span t-esc="SN"/>
+                                        </td>
+
+                                        <td style="border: 1px solid">
+                                            <span t-esc="o.employee_id.name"/>
+                                        </td>
+                                        <td style="border: 1px solid">
+                                            <span t-esc="o.employee_id.bank_account_id.acc_number"/>
+                                        </td>
+                                        <t t-foreach="o.line_ids" t-as="net_amount">
+                                            <t t-if="net_amount.category_id.name=='Net'">
+                                                <td class="text-right" style="border: 1px solid">
+                                                    <span t-esc="net_amount.total"/>
+                                                    <t t-set="total_amount"
+                                                       t-value="total_amount+net_amount.total"/>
+                                                </td>
+                                            </t>
+                                        </t>
+                                    </tr>
+                                    <tr style="line-height:10px">
+                                        <td colspan="3" style="border: 1px solid;text-align:center">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-right" style="border: 1px solid">
+                                            <strong t-esc="'{0:,.0f}'.format(total_amount)"/>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                        </table>
+                        <br/>
+                        <p>Sincerely,</p>
+                        <br/>
+                        <p><span t-esc="data.payroll_header_id.employee_id.name"/></p>
+                        <p>General Manager, <span t-esc="data.slip_ids[0].company_id.name"/></p>
+                        <p>mobile: <span t-esc="data.slip_ids[0].company_id.phone"/></p>
+                        <p>Whatsapp: <span t-esc="data.slip_ids[0].company_id.whatsapp"/></p>
+                        <p><a><span t-esc="data.slip_ids[0].company_id.email"/>|<span t-esc="data.slip_ids[0].company_id.additional_website"/>|<span t-esc="data.slip_ids[0].company_id.website"/></a></p>
+
+                        <br/>
+                        <div >
+                        <div style = "float:left; width:40%;">
+                            <p><span t-esc="data.slip_ids[0].company_id.phone"/> / <span t-esc="data.slip_ids[0].company_id.additional_phone"/></p>
+                            <p><span t-esc="data.slip_ids[0].company_id.email"/></p>
+                            <p><span t-esc="data.slip_ids[0].company_id.website"/></p>
+                        </div>
+                        <div style="float:right;width:40%;">
+                            <p>Address: <span t-esc="data.slip_ids[0].company_id.building"/>, <span t-esc="data.slip_ids[0].company_id.floor"/><sup>th</sup>Floor</p>
+                            <p><span t-esc="data.slip_ids[0].company_id.street2"/>, <span t-esc="data.slip_ids[0].company_id.city"/></p>
+                            <p><span t-esc="data.slip_ids[0].company_id.country_id.name"/></p>
+                        </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

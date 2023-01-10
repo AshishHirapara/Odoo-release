@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<template id="report_temporary_id">
+    <t  t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+          <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure">
+                        <div class="row">
+                        <div class="col-xs-5">
+                        <table class="table table-condensed" style="border:2px solid black">
+                            <tr>
+                                <td width="40%">
+                                    <p style="text-align:center;padding-top:10px;">
+                                        <img t-if="doc.image_1920" t-att-src="image_data_uri(doc.image_1920)" height="140" border="1" width="120"/>
+                                    </p>    
+                                </td>
+                                <td width="60%">
+                                    <h4><t t-esc="doc.parent_id.name" /></h4>
+                                    <p style="padding-left:10px;"><t t-esc="doc.street"/>, <t t-esc="doc.city"/>, <t t-esc="doc.country_id.name"/></p>
+                                    <br/>
+                                    <h4><t t-esc="doc.name"/></h4>
+                                    <h5>Job Title</h5>
+                                    <p><t t-esc="doc.function"/></p>
+                                    <h5>Phone Number</h5>
+                                    <p><t t-esc="doc.phone"/></p>
+                                    <h5>Email Address</h5>
+                                    <p><t t-esc="doc.email"/></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                </div>
+          </t>
+        </t>
+    </t>
+</template>
+</data>
+</odoo>

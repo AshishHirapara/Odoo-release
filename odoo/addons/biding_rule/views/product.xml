@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="purchase_order_t_inherit_form_view">
+        <field name="name">purchase.order.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+				<page string="Tender Information">
+					<group><field name="agreement"/></group>
+					<field name="rule">
+						<tree string="Tender Information">
+						   <field name="name"/>
+						   <field name="input_type"/>
+						   <field name="value"/>
+					      </tree>
+                        <form>
+							<group>
+                            	<field name="name" readonly="1" force_save="1"/>
+						   		<field name="input_type" readonly="1" force_save="1"/>
+							</group>
+							<group>
+								<field name="amount" attrs="{'invisible': [('input_type', '!=', 'amount')]}"/>
+						   		<field name="selection" attrs="{'invisible': [('input_type', '!=', 'selection')]}"/>
+<!--						   		<field name="doc_attachment_id" attrs="{'invisible': [('input_type', '!=', 'attach')]}" widget="many2many_binary"/>-->
+						   		<field name="is_pass" attrs="{'invisible': [('input_type', '!=', 'tick')]}"/>
+						   		<field name="amount" attrs="{'invisible': [('input_type', '!=', 'number')]}"/>
+                            </group>
+                        </form>
+					</field>
+				</page>
+
+			</notebook>
+        </field>
+    </record>
+</odoo>

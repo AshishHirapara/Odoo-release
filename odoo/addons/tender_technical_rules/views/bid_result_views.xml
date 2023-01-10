@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+   <record model="ir.ui.view" id="view_quotation_technical_rules_result_form">
+         <field name="name">quotation.technical.rules.result.form</field>
+         <field name="model">quotation.technical.rules.result</field>
+         <field name="arch" type="xml">
+            <form string="Result of Technical Rules">
+               <sheet>
+               <group>
+                    <group>
+                         <field name="selected_variant" attrs="{'invisible':1}"/>
+                         <field name="qoutation_id" attrs="{'invisible':1}"/>
+                         <field name="child_rule_id"/>
+                         <field name="check_box" attrs="{'invisible':[('selected_variant','!=','Checkbox')]}"/>
+                         <field name="document" attrs="{'invisible':[('selected_variant','!=','Attachment')]}"/>
+                         <field name="number" attrs="{'invisible':[('selected_variant','!=', 'Number')]}"/>
+                         <field name="selection" attrs="{'invisible':[('selected_variant','!=', 'Dropdown')]}"/>
+                        
+                    </group>
+                </group>
+                </sheet>
+            </form>
+         </field>
+      </record>
+
+
+    <record id="view_child_technical_rules_tree" model="ir.ui.view">
+    <field name="name">quotation.technical.rules.result.tree</field>
+    <field name="model">quotation.technical.rules.result</field>
+    <field name="arch" type="xml">
+        <tree string="Result of Technical Rules" >
+            <field name="selected_variant" attrs="{'invisible':1}"/>
+            <field name="qoutation_id" attrs="{'invisible':1}"/>
+            <field name="child_rule_id"/>
+            <field name="check_box" attrs="{'invisible':[('selected_variant','!=','Checkbox')]}"/>
+            <field name="document" attrs="{'invisible':[('selected_variant','!=','Attachment')]}"/>
+            <field name="number" attrs="{'invisible':[('selected_variant','!=', 'Number')]}"/>
+            <field name="selection" attrs="{'invisible':[('selected_variant','!=', 'Dropdown')]}"/>
+                        
+        </tree>
+    </field>
+    </record> 
+
+</data>
+</odoo>

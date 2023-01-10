@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+   <record model="ir.ui.view" id="view_child_technical_rules_form">
+         <field name="name">child.technical.rules.form</field>
+         <field name="model">child.technical.rules</field>
+         <field name="arch" type="xml">
+            <form string="Child Technical Rules">
+               <sheet>
+               <group>
+                    <group>
+                        <field name="parent_rule_id" widget="many2one_clickable" />
+                        <field name="rule_name"  />
+                        <field name="point_given" />
+                        <field name="remark" />
+                    </group>
+                    <group>
+                        <field name="selection_view" invisible="1"/>
+                        <field name="input_type"/>       
+                        <field name="selection" widget="many2many_tags" attrs="{'invisible': [('input_type', '!=', 'selection')]}" />
+                        <field name="number" attrs="{'invisible': [('input_type', '!=', 'number')]}">
+                                <tree editable="bottom">
+                                     <field name="amount"/>
+                                    <field name="value"/>
+                                </tree>
+                        </field>
+                    </group>
+                </group>
+                </sheet>
+            </form>
+         </field>
+      </record>
+
+
+    <record id="view_child_technical_rules_tree" model="ir.ui.view">
+    <field name="name">child.technical.rules.tree</field>
+    <field name="model">child.technical.rules</field>
+    <field name="arch" type="xml">
+        <tree string="Child Technical Rules" >
+            <field name="parent_rule_id" />
+            <field name="rule_name" />
+            <field name="point_given" />
+        </tree>
+    </field>
+    </record> 
+
+    <record model="ir.actions.act_window" id="action_child_technical_rules_config">
+        <field name="name">Child Technical Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">child.technical.rules</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">ensured["id"], 'in', [rule.requestion_id.id for rule in self.rules_ids]</field>
+    </record>
+
+    <menuitem
+        id="menu_child_technical_rules_main"
+        sequence="2"
+        parent="tender_technical_rules.technical_config_rules"
+        action="action_child_technical_rules_config" /> 
+
+  </data>
+
+</odoo>

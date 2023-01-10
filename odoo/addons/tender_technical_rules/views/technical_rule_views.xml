@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+   <record model="ir.ui.view" id="view_technical_rules_form">
+         <field name="name">technical.rules.form</field>
+         <field name="model">technical.rules</field>
+         <field name="arch" type="xml">
+            <form string="Technical Rules">
+               <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="reference_no" readonly="1"/>
+                    </h1>
+                </div>
+               <group>
+                    <group>
+                        <field name="rule_name"  />
+                        <field name="weight" /> 
+                        <field name="requestion_id"  readonly="1" force_save="1" />                       
+                    </group>
+                </group>
+                </sheet>
+            </form>
+         </field>
+      </record>
+
+
+    <record id="view_technical_rules_tree" model="ir.ui.view">
+    <field name="name">technical.rules.tree</field>
+    <field name="model">technical.rules</field>
+    <field name="arch" type="xml">
+        <tree string="Parent Technical Rules" >
+            <field name="reference_no" />
+            <field name="rule_name" />
+            <field name="weight" />
+        </tree>
+    </field>
+    </record> 
+
+    <record model="ir.actions.act_window" id="action_technical_rules_config">
+        <field name="name">Technical Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">technical.rules</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('id', 'in', [rule.requestion_id.id for rule in self.rules_ids])]</field>
+    </record>
+
+    <menuitem name="Rules" id="tender_technical_rules.menu_root" parent="purchase.menu_purchase_root" />
+
+    <menuitem name="Technical Criteria" id="tender_technical_rules.technical_config_rules" parent="tender_technical_rules.menu_root" sequence="1" />
+   
+    <menuitem
+        id="menu_technical_rules_main"
+        sequence="1"
+        parent="tender_technical_rules.technical_config_rules"
+        action="action_technical_rules_config" />
+
+  </data>
+
+</odoo>

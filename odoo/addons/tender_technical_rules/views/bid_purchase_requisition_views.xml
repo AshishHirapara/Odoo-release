@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="bid_technical_rule_inherit_form_view">
+        <field name="name">purchase.requisition.view.inherit</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" name="rule_view" type="object" icon="fa-list-ol">
+                    <field string="Rules" name="rules_count" widget="statinfo"/>
+                </button>
+            </div>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Technical Rules" >
+                    <field name="rules_ids">
+                        <tree editable="bottom">
+                            <field name="child_rule_ids"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath> 
+        </field>
+    </record>
+</odoo>

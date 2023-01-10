@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+    <odoo>
+        <record id="view_hr_payroll_structure_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payroll.structure.form.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+               
+                <xpath expr="//field[@name='type_id']" position="before">
+                        <field name="parent_name" />
+                </xpath>
+                <page name="salary_rules"  position="replace">
+                    <page name="salary_rules" string="Salary Rules">
+                        <field name="rule_ids" >
+                            <tree>
+                               <field name="name"/>
+                               <field name="code"/>
+                               <field name="category_id"/>
+                               <field name="sequence" invisible="1"/>
+                               <field name="partner_id"/>
+                            </tree>
+                         </field>
+                    </page>
+                    
+                  </page> 
+              
+            </field>
+        </record>
+        <record id="view_hr_contract_structure_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+               
+                <field name="structure_type_id" position="replace" >
+                        <field name="stucture_type_selector" />
+                </field>
+
+
+                   
+              
+            </field>
+        </record>
+        
+    </odoo>

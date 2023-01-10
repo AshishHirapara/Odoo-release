@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="external_report_inherit_template" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[1]" position="replace">
+                <div t-attf-class="header o_company_#{company.id}_layout">
+                    <div class="row">
+                        <div class="col-6 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 130px; width: auto;" alt="Logo"/>
+                        </div>
+                        <div class="col-6" name="company_address">
+                            <div style="float:right;vertical-align:top;text-align:right;font-family: 'MonixBold';font-size:12pt;" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' t-field="company.partner_id"/>
+                        </div>
+
+                     </div>
+                    <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                        <div class="col-12">
+                            <div style="border-bottom: 1px solid black;"/>
+                        </div>
+
+                    </div>
+            </div>
+            </xpath>
+
+            <xpath expr="//div[3]" position="replace">
+                <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <ul class="list-inline mb4">
+                            <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                                adding d-inline class fixes the problem-->
+                            <li t-if="company.phone" class="list-inline-item d-inline">Phone: <span class="o_force_ltr" t-field="company.phone"/></li>
+                            <li t-if="company.email" class="list-inline-item d-inline">Email: <span t-field="company.email"/></li>
+                            <li t-if="company.website" class="list-inline-item d-inline">Web: <span t-field="company.website"/></li>
+                            <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                        </ul>
+
+                        <div name="financial_infos">
+                            <span t-field="company.report_footer"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+    </template>
+
+</odoo>

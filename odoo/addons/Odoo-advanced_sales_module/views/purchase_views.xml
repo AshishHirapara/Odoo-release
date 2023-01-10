@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	  <record id="purchase_order_form_extends" model="ir.ui.view">
+		   <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+           <field name="amount_untaxed" position="after">
+			 <field name="purchase_tax_line_ids" attrs="{'invisible': [('purchase_tax_line_ids', '=', [] )]}">
+						<tree string="Taxes" create="0">
+							<field name="name" />
+							<field name="amount" />
+							<field name="tax_id" />
+							<field name="account_id" />
+						</tree>
+					</field>
+					</field>
+           </field>
+	</record>
+</odoo>

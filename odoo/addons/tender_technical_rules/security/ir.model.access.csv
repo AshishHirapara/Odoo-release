@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_technical_rules_user,technical.rules.user,model_technical_rules,base.group_user,1,1,1,1
+access_child_technical_rules_user,child.technical.rules.user,model_child_technical_rules,base.group_user,1,1,1,1
+access_selection_for_child_technical_rules_user,selection.for.child.technical.rules.user,model_technical_selection_field,base.group_user,1,1,1,1
+access_number_variant_selection_for_child_technical_rules_user,number.variant.selection.for.child.technical.rules.user,model_number_variant_rule,base.group_user,1,1,1,1
